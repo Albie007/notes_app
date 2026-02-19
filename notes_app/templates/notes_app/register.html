@@ -1,0 +1,47 @@
+{% extends "notes_app/base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col">
+        <div class="card auth-card">
+            <div class="card-body p-4 p-lg-5">
+                <div class="text-center mb-4">
+                    <i class="bi bi-person-plus-fill" style="font-size: 2.5rem; color: var(--accent);"></i>
+                    <h3 class="fw-bold mt-2" style="color: #2d3748;">Create Account</h3>
+                    <p class="text-muted">Join and start organizing your notes</p>
+                </div>
+
+                <form method="POST" novalidate>
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label fw-medium">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                        {% for error in field.errors %}
+                        <div class="invalid-feedback d-block">{{ error }}</div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-accent w-100 py-2 mb-3">
+                        <i class="bi bi-person-plus me-1"></i> Create Account
+                    </button>
+                </form>
+
+                <p class="text-center text-muted mb-0">
+                    Already have an account?
+                    <a href="{% url 'notes_app:login' %}" class="fw-semibold text-decoration-none"
+                        style="color: var(--accent);">
+                        Sign in
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "notes_app/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col">
+        <div class="card auth-card">
+            <div class="card-body p-4 p-lg-5">
+                <div class="text-center mb-4">
+                    <i class="bi bi-journal-richtext" style="font-size: 2.5rem; color: var(--accent);"></i>
+                    <h3 class="fw-bold mt-2" style="color: #2d3748;">Welcome Back</h3>
+                    <p class="text-muted">Sign in to access your notes</p>
+                </div>
+
+                <form method="POST" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <i class="bi bi-exclamation-circle me-1"></i>
+                        Invalid username or password. Please try again.
+                    </div>
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label fw-medium">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" name="username" id="id_username" class="form-control"
+                                placeholder="Enter your username" required autofocus>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="id_password" class="form-label fw-medium">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password" name="password" id="id_password" class="form-control"
+                                placeholder="Enter your password" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-accent w-100 py-2 mb-3">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
+                    </button>
+                </form>
+
+                <p class="text-center text-muted mb-0">
+                    Don't have an account?
+                    <a href="{% url 'notes_app:register' %}" class="fw-semibold text-decoration-none"
+                        style="color: var(--accent);">
+                        Register here
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
